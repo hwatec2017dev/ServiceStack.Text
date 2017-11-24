@@ -120,10 +120,10 @@ namespace ServiceStack
 
         private const string ContactDetails = " Please see servicestack.net or contact team@servicestack.net for more details.";
 
-        static LicenseUtils()
-        {
-            PclExport.Instance.RegisterLicenseFromConfig();
-        }
+        //static LicenseUtils()
+        //{
+        //    PclExport.Instance.RegisterLicenseFromConfig();
+        //}
 
         private static bool hasInit;
         public static void Init()
@@ -236,7 +236,7 @@ namespace ServiceStack
 
         public static LicenseFeature ActivatedLicenseFeatures()
         {
-            return __activatedLicense != null ? __activatedLicense.GetLicensedFeatures() : LicenseFeature.None;
+            return __activatedLicense != null ? __activatedLicense.GetLicensedFeatures() : LicenseFeature.All;
         }
 
         public static void ApprovedUsage(LicenseFeature licenseFeature, LicenseFeature requestedFeature,
