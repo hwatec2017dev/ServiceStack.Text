@@ -3,6 +3,7 @@ using System;
 using System.Runtime.Serialization;
 using NUnit.Framework;
 using ServiceStack.Html;
+using System.Web.Routing;
 
 namespace ServiceStack.Text.Tests.JsonTests
 {
