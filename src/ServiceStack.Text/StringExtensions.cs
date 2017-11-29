@@ -12,9 +12,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using ServiceStack.Text;
@@ -1208,6 +1210,25 @@ namespace ServiceStack
         public static string NormalizeNewLines(this string text)
         {
             return text?.Replace("\r\n", "\n").Trim();
+        }
+
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static string NormalizeScheme(this string urlString, bool useHttps)
+        {
+            if (string.IsNullOrWhiteSpace(urlString))
+                return "";
+
+            urlString = urlString.Trim();
+            if (!useHttps)
+                return urlString.StartsWith("http://", StringComparison.OrdinalIgnoreCase) || urlString.StartsWith("https://", StringComparison.OrdinalIgnoreCase)
+                    ? urlString
+                    : "http://" + urlString;
+
+            if (urlString.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
+                return urlString;
+
+            return "https://" + (urlString.StartsWith("http://", StringComparison.OrdinalIgnoreCase) ? urlString.Substring(7) : urlString);
         }
 
 #if !LITE
